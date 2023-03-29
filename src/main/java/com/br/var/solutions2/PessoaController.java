@@ -64,6 +64,11 @@ public class PessoaController {
 
     }
 
+    private Object complementarRespostaFrontEnd(String imc, int anoNascimento, String validaMundial, String impostoRenda) {
+        return null;
+    } //Resposta do front end.
+
+
     private String calculaMundial(String time) {
         String mundial = "Palmeiras";
         String calculamundial;
@@ -73,7 +78,7 @@ public class PessoaController {
             calculamundial = "O time " + time + " não tem mundial";
         }
         return calculamundial;
-    }
+    }//O Palmeiras tem mundial
 
 
     private String calculaFaixaImpostoRenda(double salario) {
@@ -88,19 +93,20 @@ public class PessoaController {
         } else {
             return "Alíquota de 27,5%";
         }
-    }
+    }//metodo para cacular a faixa de imposto
 
     private int calculaAnoNascimento(int idade) {
         int anoAtual = 2023;
         int anoNascimento = anoAtual - idade;
         return anoNascimento;
-    }
+    } // metodo para calcular ano de nascimento
+
 
     private String calculaImc( int peso, int altura) {
         float alturaEmMetros = altura / 100; // converte altura to metros
         float imc = peso / (alturaEmMetros * alturaEmMetros);
         return String.valueOf(imc);
-    }
+    } //metodo para calcular o imc
 
 }
 

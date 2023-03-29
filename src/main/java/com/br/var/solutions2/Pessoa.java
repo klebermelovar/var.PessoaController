@@ -2,14 +2,14 @@ package com.br.var.solutions2;
 
 public class Pessoa {
      //int calendario; varivel criado para calcular a idade
-    String time;
-    String endereco;
-    String nome;
-    String sobrenome;
-    int idade;
-    int peso;
-    double salario;
-    int altura;
+    public String  time;
+    public  String endereco;
+    public String nome;
+    public String sobrenome;
+    public int idade;
+    public int peso;
+    public double salario;
+    public int altura;
 
     public String getTime() {
         return time;
