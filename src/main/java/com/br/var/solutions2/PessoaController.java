@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Slf4j
@@ -103,11 +104,22 @@ public class PessoaController {
 
 
     private String calculaImc( int peso, int altura) {
-        float alturaEmMetros = altura / 100; // converte altura to metros
-        float imc = peso / (alturaEmMetros * alturaEmMetros);
-        return String.valueOf(imc);
-    } //metodo para calcular o imc
+    double imc = peso / (altura*altura);
 
+        if(imc < 18.5){
+           return " O IMC calculado é:"+ imc + "e voce é magro!";
+         }else if (imc > 18.5 && imc <= 29.9) {
+            return "o imc caclculado é:" + imc + " e voce esta no peso ideal";
+        }else if (imc > 24.9 && imc <= 29.9 ){
+           return "o imc caclculado é:" + imc + " e voce esta gordo";
+        } else if (imc > 29.9 && imc <= 34.9) {
+            return "o imc caclculado é:" + imc + " e voce esta gordo nivel 2 ";
+        } else if (imc > 34.9 && imc < 39.9) {
+            return "o imc caclculado é:" + imc + " e voce esta gordo  nivel 3";
+        } else{
+            return "o imc caclculado é:" + imc + " e voce esta gordo  nivel 4";
+        }
+    }
 }
 
 

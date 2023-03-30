@@ -10,6 +10,15 @@ public class Pessoa {
     public int peso;
     public double salario;
     public int altura;
+    public  double saldo;
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
 
     public String getTime() {
         return time;
