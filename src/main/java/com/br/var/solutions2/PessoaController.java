@@ -13,22 +13,22 @@ import java.util.Objects;
 public class PessoaController {
     @GetMapping
     public ResponseEntity<Object> get() {
-        Pessoa pessoa1 = new Pessoa();
-        pessoa1.setEndereco("Rua juliana, numero 32, parque dos carmargos, barueri");
-        pessoa1.setNome("kleber");
-        pessoa1.setSobrenome("henrique");
-        pessoa1.setIdade(22);
-        pessoa1.setPeso(182);
-        return ResponseEntity.ok(pessoa1);
+        PessoaRequest pessoaRequest1 = new PessoaRequest();
+        pessoaRequest1.setEndereco("Rua juliana, numero 32, parque dos carmargos, barueri");
+        pessoaRequest1.setNome("kleber");
+        pessoaRequest1.setSobrenome("henrique");
+        pessoaRequest1.setIdade(22);
+        pessoaRequest1.setPeso(182);
+        return ResponseEntity.ok(pessoaRequest1);
     }
 
     @GetMapping("/resumo")
-    public ResponseEntity<Object> getPessoa(@RequestBody Pessoa pessoinha) {
+    public ResponseEntity<Object> getPessoa(@RequestBody PessoaRequest pessoinha) {
         String imc = null;
         int anoNascimento = 0;
         String ImpostoRenda = null;
         String validaMundial = null;
-
+        String SaldoEmDolar = null;
         if (!pessoinha.getNome().isEmpty()){
 
 
@@ -53,8 +53,13 @@ public class PessoaController {
                  validaMundial = calculaMundial(pessoinha.getTime());
             }
 
+            if (Objects.nonNull(pessoinha.getSaldo())) {
+                log.info("Convertendo saldo em dolar");
+                SaldoEmDolar  =  converteSaldoEmDolar(pessoinha.getSaldo());
+            }
+
             log.info("Montando Objeto de retorno para o front-end.");
-            Object resumo = complementarRespostaFrontEnd(imc, anoNascimento, validaMundial, ImpostoRenda);
+            PessoaResponse resumo = complementarRespostaFrontEnd(imc, anoNascimento, validaMundial, ImpostoRenda,SaldoEmDolar);
 
             return ResponseEntity.ok(resumo);
         }
@@ -64,31 +69,39 @@ public class PessoaController {
 
     }
 
-    private Object complementarRespostaFrontEnd(String imc, int anoNascimento, String validaMundial, String impostoRenda) {
-        return null;
+    private PessoaResponse complementarRespostaFrontEnd(pessoaRequest pessoa,String imc, int anoNascimento, String validaMundial, String impostoRenda, String saldoEmDolar)
+    {
+        PessoaResponse response = new PessoaResponse();
+
+        response.setNome(pessoa.getNome());
     } //Resposta do front end.
 
+    //Calculo do de converçao do imposto de renda
+
+    private String converteSaldoEmDolar(double saldo){
+        return String.valueOf(saldo / 5.11);
+    }
 
     private String calculaMundial(String time) {
         String mundial = "Palmeiras";
         String calculamundial;
-        if (time.equals(mundial)) {
+        if (time.equalsIgnoreCase(mundial)) {
             calculamundial = "O time " + time + " tem mundial";
         } else {
-            calculamundial = "O time " + time + " não tem mundial";
+            calculamundial = "O time " + time + " chora bebe";
         }
         return calculamundial;
-    }//O Palmeiras tem mundial
+    }// O Palmeiras tem mundial
 
 
     private String calculaFaixaImpostoRenda(double salario) {
-        if (salario <= 1903.98) {
+        if (salario <= 1903) {
             return "Isento de imposto de renda";
-        } else if (salario <= 2826.65) {
+        } else if (salario <= 2826) {
             return "Alíquota de 7,5%";
-        } else if (salario <= 3751.05) {
+        } else if (salario <= 3751) {
             return "Alíquota de 15%";
-        } else if (salario <= 4664.68) {
+        } else if (salario <= 4664) {
             return "Alíquota de 22,5%";
         } else {
             return "Alíquota de 27,5%";
@@ -103,11 +116,22 @@ public class PessoaController {
 
 
     private String calculaImc( int peso, int altura) {
-        float alturaEmMetros = altura / 100; // converte altura to metros
-        float imc = peso / (alturaEmMetros * alturaEmMetros);
-        return String.valueOf(imc);
-    } //metodo para calcular o imc
+    double imc = peso / (altura*altura);
 
+        if(imc < 18.5){
+           return " O IMC calculado é:"+ imc + "e voce é magro!";
+         }else if (imc > 18.5 && imc <= 29.9) {
+            return "o imc caclculado é:" + imc + " e voce esta no peso ideal";
+        }else if (imc > 24.9 && imc <= 29.9 ){
+           return "o imc caclculado é:" + imc + " e voce esta gordo";
+        } else if (imc > 29.9 && imc <= 34.9) {
+            return "o imc caclculado é:" + imc + " e voce esta gordo nivel 2 ";
+        } else if (imc > 34.9 && imc < 39.9) {
+            return "o imc caclculado é:" + imc + " e voce esta gordo  nivel 3";
+        } else{
+            return "o imc caclculado é:" + imc + " e voce esta gordo  nivel 4";
+        }
+    }
 }
 
 

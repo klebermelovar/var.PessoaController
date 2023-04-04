@@ -1,6 +1,6 @@
 package com.br.var.solutions2;
 
-public class Pessoa {
+public class PessoaRequest {
      //int calendario; varivel criado para calcular a idade
     public String  time;
     public  String endereco;
@@ -10,6 +10,15 @@ public class Pessoa {
     public int peso;
     public double salario;
     public int altura;
+    public  double saldo;
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
 
     public String getTime() {
         return time;
