@@ -1,6 +1,6 @@
 package com.br.var.solutions2;
 
-public class Pessoa {
+public class PessoaRequest {
      //int calendario; varivel criado para calcular a idade
     public String  time;
     public  String endereco;
