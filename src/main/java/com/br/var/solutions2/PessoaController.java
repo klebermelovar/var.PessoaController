@@ -59,7 +59,7 @@ public class PessoaController {
             }
 
             log.info("Montando Objeto de retorno para o front-end.");
-            PessoaResponse resumo = complementarRespostaFrontEnd(imc, anoNascimento, validaMundial, ImpostoRenda,SaldoEmDolar);
+            PessoaResponse resumo = complementarRespostaFrontEnd(pessoinha ,imc, anoNascimento, validaMundial, ImpostoRenda,SaldoEmDolar);
 
             return ResponseEntity.ok(resumo);
         }
@@ -69,12 +69,12 @@ public class PessoaController {
 
     }
 
-    private PessoaResponse complementarRespostaFrontEnd(pessoaRequest pessoa,String imc, int anoNascimento, String validaMundial, String impostoRenda, String saldoEmDolar)
-    {
+    private PessoaResponse complementarRespostaFrontEnd(PessoaRequest Pessoa,String imc, int anoNascimento, String validaMundial, String impostoRenda, String saldoEmDolar){
+
         PessoaResponse response = new PessoaResponse();
 
-        response.setNome(pessoa.getNome());
-    } //Resposta do front end.
+        response.setNome(Pessoa.getNome());//talvez nao funciona tem um get and setter criado no campo pessoa request
+        } //Resposta do front end.
 
     //Calculo do de converçao do imposto de renda
 
