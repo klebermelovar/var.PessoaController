@@ -1,6 +1,7 @@
 package com.br.var.solutions2;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,7 +75,10 @@ public class PessoaController {
         PessoaResponse response = new PessoaResponse();
 
         response.setNome(Pessoa.getNome());//talvez nao funciona tem um get and setter criado no campo pessoa request
-        } //Resposta do front end.
+        response.setSalario(impostoRenda);
+        response.setAnoNascimento(AnoNascimento);
+        return response;
+    } //Resposta do front end.
 
     //Calculo do de converçao do imposto de renda
 
