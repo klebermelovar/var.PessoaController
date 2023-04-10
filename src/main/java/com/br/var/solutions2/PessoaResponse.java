@@ -10,7 +10,7 @@ public class PessoaResponse {
     }
 
     public void setAnoNascimento(int anoNascimento) {
-        this.AnoNascimento = anoNascimento;
+        this.AnoNascimento = AnoNascimento;
     }
 
     public String classificacaoIMC;

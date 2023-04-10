@@ -76,7 +76,7 @@ public class PessoaController {
 
         response.setNome(Pessoa.getNome());//talvez nao funciona tem um get and setter criado no campo pessoa request
         response.setSalario(impostoRenda);
-        response.setAnoNascimento(AnoNascimento);
+        response.setAnoNascimento(anoNascimento);
         return response;
     } //Resposta do front end.
 
