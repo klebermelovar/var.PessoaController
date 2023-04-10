@@ -2,9 +2,19 @@ package com.br.var.solutions2;
 
 public class PessoaRequest {
      //int calendario; varivel criado para calcular a idade
+    // public String pessoa;// gambiarra apagar em caso de erro
     public String  time;
     public  String endereco;
     public String nome;
+
+   // public String getPessoa() {
+      //  return pessoa;
+    //}
+
+   // public void setPessoa(String pessoa) {
+        //this.pessoa = pessoa;
+    //}
+
     public String sobrenome;
     public int idade;
     public int peso;
