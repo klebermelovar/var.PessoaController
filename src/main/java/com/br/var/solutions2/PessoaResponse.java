@@ -1,7 +1,17 @@
 package com.br.var.solutions2;
 
 public class PessoaResponse {
+    public String mundialClubes;
     public int AnoNascimento;
+
+    public String getMundialClubes() {
+        return mundialClubes;
+    }
+
+    public void setMundialClubes(String mundialClubes) {
+        this.mundialClubes = mundialClubes;
+    }
+
     public  String imc;
     public String IR;
 

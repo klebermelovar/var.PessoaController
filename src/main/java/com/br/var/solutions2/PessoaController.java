@@ -66,17 +66,18 @@ public class PessoaController {
         }
 
 
-        return ResponseEntity.badRequest().body("Erro na solicitação");
-
+        return null;
     }
 
-    private PessoaResponse complementarRespostaFrontEnd(PessoaRequest Pessoa,String imc, int anoNascimento, String validaMundial, String impostoRenda, String saldoEmDolar){
+    private PessoaResponse complementarRespostaFrontEnd(PessoaRequest pessoa,String imc, int anoNascimento, String validaMundial, String impostoRenda, String saldoEmDolar){
 
         PessoaResponse response = new PessoaResponse();
 
-        response.setNome(Pessoa.getNome());//talvez nao funciona tem um get and setter criado no campo pessoa request
+        response.setNome(pessoa.getNome());//talvez nao funciona tem um get and setter criado no campo pessoa request
         response.setSalario(impostoRenda);
         response.setAnoNascimento(anoNascimento);
+        response.setMundialClubes(validaMundial);
+        response.setSaldoEmDolar(saldoEmDolar);
         return response;
     } //Resposta do front end.
 
@@ -114,7 +115,7 @@ public class PessoaController {
 
     private int calculaAnoNascimento(int idade) {
         int anoAtual = 2023;
-        int anoNascimento = anoAtual - idade;
+        int anoNascimento = anoAtual - idade; //mundança em casa boi
         return anoNascimento;
     } // metodo para calcular ano de nascimento
 
