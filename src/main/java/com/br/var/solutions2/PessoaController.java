@@ -12,16 +12,16 @@ import java.util.Objects;
 @RequestMapping("/pessoa")
 @CrossOrigin(origins = "*")
 public class PessoaController {
-    @GetMapping
-    public ResponseEntity<Object> get() {
-        PessoaRequest pessoaRequest1 = new PessoaRequest();
-        pessoaRequest1.setEndereco("Rua juliana, numero 32, parque dos carmargos, barueri");
-        pessoaRequest1.setNome("kleber");
-        pessoaRequest1.setSobrenome("henrique");
-        pessoaRequest1.setIdade(22);
-        pessoaRequest1.setPeso(182);
-        return ResponseEntity.ok(pessoaRequest1);
-    }
+    //@GetMapping
+   // public ResponseEntity<Object> get() {
+        //PessoaRequest pessoaRequest1 = new PessoaRequest();
+        //pessoaRequest1.setEndereco("Rua juliana, numero 32, parque dos carmargos, barueri");
+       // pessoaRequest1.setNome("kleber");
+       // pessoaRequest1.setSobrenome("henrique");
+        //pessoaRequest1.setIdade();
+       // pessoaRequest1.setPeso(182);
+       // return ResponseEntity.ok(pessoaRequest1);
+   // }
 
     @GetMapping("/resumo")
     public ResponseEntity<Object> getPessoa(@RequestBody PessoaRequest pessoinha) {
@@ -78,6 +78,9 @@ public class PessoaController {
         response.setAnoNascimento(anoNascimento);
         response.setMundialClubes(validaMundial);
         response.setSaldoEmDolar(saldoEmDolar);
+        response.setIdade(pessoa.getIdade());
+        response.setImc(imc);
+
         return response;
     } //Resposta do front end.
 
@@ -120,7 +123,7 @@ public class PessoaController {
     } // metodo para calcular ano de nascimento
 
 
-    private String calculaImc( int peso, int altura) {
+    private String calculaImc( double peso, double altura) {
     double imc = peso / (altura*altura);
 
         if(imc < 18.5){
