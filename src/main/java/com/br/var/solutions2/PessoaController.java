@@ -12,20 +12,20 @@ import java.util.Objects;
 @RequestMapping("/pessoa")
 @CrossOrigin(origins = "*")
 public class PessoaController {
-    @GetMapping
-    public ResponseEntity<Object> get() {
-        PessoaRequest pessoaRequest1 = new PessoaRequest();
-        pessoaRequest1.setEndereco("Rua juliana, numero 32, parque dos carmargos, barueri");
-        pessoaRequest1.setNome("kleber");
-        pessoaRequest1.setSobrenome("henrique");
-        pessoaRequest1.setIdade(22);
-        pessoaRequest1.setPeso(182);
-        return ResponseEntity.ok(pessoaRequest1);
-    }
+    //@GetMapping
+   // public ResponseEntity<Object> get() {
+        //PessoaRequest pessoaRequest1 = new PessoaRequest();
+        //pessoaRequest1.setEndereco("Rua juliana, numero 32, parque dos carmargos, barueri");
+       // pessoaRequest1.setNome("kleber");
+       // pessoaRequest1.setSobrenome("henrique");
+        //pessoaRequest1.setIdade();
+       // pessoaRequest1.setPeso(182);
+       // return ResponseEntity.ok(pessoaRequest1);
+   // }
 
     @GetMapping("/resumo")
     public ResponseEntity<Object> getPessoa(@RequestBody PessoaRequest pessoinha) {
-        String imc = null;
+        InformacoesIMC imc = new InformacoesIMC();
         int anoNascimento = 0;
         String ImpostoRenda = null;
         String validaMundial = null;
@@ -60,7 +60,7 @@ public class PessoaController {
             }
 
             log.info("Montando Objeto de retorno para o front-end.");
-            PessoaResponse resumo = complementarRespostaFrontEnd(pessoinha ,imc, anoNascimento, validaMundial, ImpostoRenda,SaldoEmDolar);
+            PessoaResponse resumo = complementarRespostaFrontEnd(pessoinha ,InformacoesIMC (imc), anoNascimento, validaMundial, ImpostoRenda,SaldoEmDolar);
 
             return ResponseEntity.ok(resumo);
         }
@@ -78,6 +78,9 @@ public class PessoaController {
         response.setAnoNascimento(anoNascimento);
         response.setMundialClubes(validaMundial);
         response.setSaldoEmDolar(saldoEmDolar);
+        response.setIdade(pessoa.getIdade());
+        response.setImc(imc);
+
         return response;
     } //Resposta do front end.
 
@@ -120,22 +123,40 @@ public class PessoaController {
     } // metodo para calcular ano de nascimento
 
 
-    private String calculaImc( int peso, int altura) {
+    private InformacoesIMC calculaImc( double peso, double altura) {
     double imc = peso / (altura*altura);
 
+    InformacoesIMC imcCalculado = new InformacoesIMC();
+
         if(imc < 18.5){
-           return " O IMC calculado é:"+ imc + "e voce é magro!";
+            imcCalculado.setImc(String.valueOf(imc));
+            imcCalculado.setClassificao("abaixo do peso");
+            return imcCalculado;
+
          }else if (imc > 18.5 && imc <= 29.9) {
-            return "o imc caclculado é:" + imc + " e voce esta no peso ideal";
+            imcCalculado.setImc(String.valueOf(imc));
+            imcCalculado.setClassificao("gordo");
+            return imcCalculado;
+
         }else if (imc > 24.9 && imc <= 29.9 ){
-           return "o imc caclculado é:" + imc + " e voce esta gordo";
+            imcCalculado.setImc(String.valueOf(imc));
+            imcCalculado.setClassificao("gordo");
+            return imcCalculado;
+
         } else if (imc > 29.9 && imc <= 34.9) {
-            return "o imc caclculado é:" + imc + " e voce esta gordo nivel 2 ";
-        } else if (imc > 34.9 && imc < 39.9) {
-            return "o imc caclculado é:" + imc + " e voce esta gordo  nivel 3";
-        } else{
-            return "o imc caclculado é:" + imc + " e voce esta gordo  nivel 4";
+            imcCalculado.setImc(String.valueOf(imc));
+            imcCalculado.setClassificao("gordo");
+            return imcCalculado;
+
+        } else if  (imc > 34.9 && imc < 39.9) {
+            imcCalculado.setImc(String.valueOf(imc));
+            imcCalculado.setClassificao("gordo");
+
+
         }
+
+
+        return imcCalculado;
     }
 }
 
